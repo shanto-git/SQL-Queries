@@ -14,11 +14,11 @@ DROP TABLE IF EXISTS Users;
 -- 1. CREATE USERS TABLE
 -- =========================================================================
 CREATE TABLE Users (
-    user_id TYPE,
-    full_name TYPE,
-    email TYPE,
-    role TYPE,
-    phone_number TYPE,
+    user_id INT,
+    full_name VARCHAR(100),
+    email VARCHAR(100),
+    role VARCHAR(50),
+    phone_number VARCHAR(20),
     
     -- Write your constraint to make 'user_id' the Primary Key
     CONSTRAINT users_main_key PRIMARY KEY (user_id),
@@ -32,11 +32,11 @@ CREATE TABLE Users (
 -- 2. CREATE MATCHES TABLE
 -- =========================================================================
 CREATE TABLE Matches (
-    match_id TYPE,
-    fixture TYPE,
-    tournament_category TYPE,
-    base_ticket_price TYPE,
-    match_status TYPE,
+    match_id INT,
+    fixture VARCHAR(150),
+    tournament_category VARCHAR(100),
+    base_ticket_price DECIMAL(10),
+    match_status VARCHAR(50),
     
     -- Write your constraint to make 'match_id' the Primary Key
     CONSTRAINT matches_main_key PRIMARY KEY (match_id),
@@ -50,15 +50,15 @@ CREATE TABLE Matches (
 -- 3. CREATE BOOKINGS TABLE
 -- =========================================================================
 CREATE TABLE Bookings (
-    booking_id TYPE,
-    user_id TYPE,
-    match_id TYPE,
-    seat_number TYPE,
-    payment_status TYPE,
-    total_cost TYPE,
+    booking_id INT,
+    user_id INT,
+    match_id INT,
+    seat_number VARCHAR(10),
+    payment_status VARCHAR(50),
+    total_cost DECIMAL(10),
     
     -- Write your constraint to make 'booking_id' the Primary Key
-    CONSTRAINT users_main_key PRIMARY KEY (user_id),
+    CONSTRAINT main_bookings PRIMARY KEY (booking_id),
     -- Write your Foreign Key constraint linking 'user_id' to the Users table
     CONSTRAINT fk_bookings_user FOREIGN KEY (user_id) REFERENCES Users(user_id),
     -- Write your Foreign Key constraint linking 'match_id' to the Matches table
@@ -100,3 +100,12 @@ INSERT INTO Bookings (booking_id, user_id, match_id, seat_number, payment_status
 (505, 3, 102, 'C-20', 'Pending', 120.00);
 
 
+-- Part 2: SQL Queries & Expected
+------------------------------------------
+
+-- Query 1: Retrieve all upcoming football matches belonging to the 'Champions League' where the match status is 'Available'.
+
+SELECT match_id, fixture, base_ticket_price 
+FROM Matches 
+WHERE tournament_category = 'Champions League' 
+  AND match_status = 'Available';
