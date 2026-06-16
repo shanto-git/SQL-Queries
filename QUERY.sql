@@ -60,9 +60,13 @@ CREATE TABLE Bookings (
     -- Write your constraint to make 'booking_id' the Primary Key
     CONSTRAINT users_main_key PRIMARY KEY (user_id),
     -- Write your Foreign Key constraint linking 'user_id' to the Users table
+    CONSTRAINT fk_bookings_user FOREIGN KEY (user_id) REFERENCES Users(user_id),
     -- Write your Foreign Key constraint linking 'match_id' to the Matches table
+    CONSTRAINT fk_bookings_match FOREIGN KEY (match_id) REFERENCES Matches(match_id),
     -- Write your check constraint to ensure 'total_cost' is non-negative
+    CONSTRAINT booking_cost CHECK (total_cost >= 0),
     -- Write your check constraint to restrict 'payment_status' values
+    CONSTRAINT chk_payment_status CHECK (payment_status IN ('Pending', 'Confirmed', 'Cancelled', 'Refunded'))
 );
 
 
@@ -94,3 +98,5 @@ INSERT INTO Bookings (booking_id, user_id, match_id, seat_number, payment_status
 (503, 2, 101, 'A-13', 'Confirmed', 150.00),
 (504, 2, 101, NULL, NULL, 150.00),
 (505, 3, 102, 'C-20', 'Pending', 120.00);
+
+
