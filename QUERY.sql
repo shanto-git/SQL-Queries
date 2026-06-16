@@ -39,8 +39,11 @@ CREATE TABLE Matches (
     match_status TYPE,
     
     -- Write your constraint to make 'match_id' the Primary Key
+    CONSTRAINT matches_main_key PRIMARY KEY (match_id),
     -- Write your check constraint to prevent negative ticket prices
+    CONSTRAINT match_price_check CHECK (base_ticket_price >= 0),
     -- Write your check constraint to restrict 'match_status' values
+    CONSTRAINT match_status_check CHECK (match_status IN ('Available', 'Selling Fast', 'Sold Out', 'Postponed'))
 );
 
 -- =========================================================================
