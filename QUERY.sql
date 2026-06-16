@@ -21,8 +21,11 @@ CREATE TABLE Users (
     phone_number TYPE,
     
     -- Write your constraint to make 'user_id' the Primary Key
+    CONSTRAINT users_main_key PRIMARY KEY (user_id),
     -- Write your constraint to ensure 'email' values are never duplicated
+    CONSTRAINT user_email_uq UNIQUE (email),
     -- Write your check constraint to restrict 'role' to specific allowed strings
+    CONSTRAINT user_role_check CHECK (role IN ('Ticket Manager', 'Football Fan'))
 );
 
 -- =========================================================================
@@ -52,6 +55,7 @@ CREATE TABLE Bookings (
     total_cost TYPE,
     
     -- Write your constraint to make 'booking_id' the Primary Key
+    CONSTRAINT users_main_key PRIMARY KEY (user_id),
     -- Write your Foreign Key constraint linking 'user_id' to the Users table
     -- Write your Foreign Key constraint linking 'match_id' to the Matches table
     -- Write your check constraint to ensure 'total_cost' is non-negative
